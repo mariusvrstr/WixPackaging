@@ -1,0 +1,22 @@
+﻿@using System.Web.Helpers
+@using System.Web.Optimization
+@using Spike.Web.Menu
+
+@model System.Collections.Generic.IEnumerable<MenuItem>
+
+Navigation
+<ul data-bind="foreach: menuItems">
+    <li>
+        <a data-bind="attr: { href: 'http://localhost:49197/' + link }">
+            <span data-bind="text: name"></span>
+        </a> 
+    </li>
+</ul>
+
+<script>
+
+    $().ready(function() {
+        $.Spike.menuTools.updateMenuItems(@Html.Raw(Json.Encode(@Model)));
+    });
+
+</script>

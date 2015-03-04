@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Include xlmns="http://schemas.microsoft.com/wix/2006/wi">
+
+  <?define VersionNumber="1.00" ?>
+  <?define ProductName="Spike.ExampleService" ?>
+  <?define Manufacturer="Spike" ?>
+  
+  <?define ProductId="3782166B-DF4C-4898-8ED3-03DCB6898989" ?>
+  <?define UpgradeCode="4034B344-F965-425A-8441-7A075B40F8EA" ?>
+  
+</Include>

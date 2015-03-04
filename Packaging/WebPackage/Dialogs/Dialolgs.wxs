@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+    <Fragment>
+        <UI>
+            <Dialog Id="IisSetupDlg" Width="400" Height="300" Title="IIS Settings - [ProductName]" NoMinimize="yes">
+                <Control Type="Text" Id="Title" Width="163" Height="10" X="8" Y="11" Text="Please enter IIS configuration details" />
+                <Control Type="Line" Id="HeaderLine" Width="400" Height="2" X="0" Y="34" />
+                <Control Type="Bitmap" Id="BannerBitmap" Width="399" Height="35" X="0" Y="0" Text="WixUI_Bmp_Banner" />
+                <Control Type="Line" Id="BottomLine" Width="400" Height="0" X="0" Y="260" />
+                <Control Type="PushButton" Id="Back" Width="56" Height="17" X="191" Y="270" Text="Back">
+                    <Publish Event="NewDialog" Value="LicenseAgreementDlg" />
+                </Control>
+                <Control Type="PushButton" Id="Next" Width="56" Height="17" X="251" Y="270" Text="Next">
+                  <Publish Event="NewDialog" Value="PoolSettingDlg">
+                    <!-- Validate Input -->
+                    <![CDATA[WEBSITE_NAME <> ""]]>
+                  </Publish>
+                </Control>
+                <Control Type="PushButton" Id="Cancel" Width="56" Height="17" X="330" Y="270" Text="Cancel">
+                    <Publish Event="SpawnDialog" Value="CancelDlg">1</Publish>
+                </Control>
+                <Control Type="Text" Id="WebsiteNameLabel" Width="102" Height="10" X="41" Y="52" Text="IIS Website Name:" />
+                <Control Type="Edit" Id="WebsiteNameEdit" Width="213" Height="15" X="41" Y="68" Text="{80}" Property="WEBSITE_NAME" />
+                <Control Type="Text" Id="WebsiteIdLabel" Width="102" Height="10" X="41" Y="94" Text="Website ID:" />
+                <Control Type="Edit" Id="WebsiteIdEdit" Width="213" Height="15" X="41" Y="109" Text="{80}" Property="WEBSITE_ID" />
+            </Dialog>
+            <Dialog Id="PoolSettingDlg" Width="400" Height="300" Title="Application Pool Settings - [ProductName]" NoMinimize="yes">
+                <Control Type="Text" Id="Title" Width="163" Height="10" X="8" Y="11" Text="Please enter App Pool configuration details:" />
+                <Control Type="Line" Id="HeaderLine" Width="400" Height="2" X="0" Y="34" />
+                <Control Type="Bitmap" Id="BannerBitmap" Width="399" Height="35" X="0" Y="0" Text="WixUI_Bmp_Banner" />
+                <Control Type="Line" Id="BottomLine" Width="400" Height="0" X="0" Y="260" />
+                <Control Type="PushButton" Id="Back" Width="56" Height="17" X="191" Y="270" Text="Back">
+                    <Publish Event="NewDialog" Value="IisSetupDlg" />
+                </Control>
+                <Control Type="PushButton" Id="Next" Width="56" Height="17" X="251" Y="270" Text="Next">
+                  <Publish Event="NewDialog" Value="CustomizeDlg">
+                    <!-- Validate input -->
+                    <![CDATA[WEB_APP_POOL_NAME <> "" or WEB_APP_POOL_IDENTITY_DOMAIN <> "" or WEB_APP_POOL_IDENTITY_USERNAME <> "" or WEB_APP_POOL_IDENTITY_PWD <> ""]]>
+                  </Publish>
+                </Control>
+                <Control Type="PushButton" Id="Cancel" Width="56" Height="17" X="330" Y="270" Text="Cancel">
+                    <Publish Event="SpawnDialog" Value="CancelDlg">1</Publish>
+                </Control>
+                <Control Type="Text" Id="ApplicationNameLabel" Width="102" Height="10" X="41" Y="52" Text="Application name:" />
+                <Control Type="Edit" Id="ApplicationNameEdit" Width="213" Height="15" X="41" Y="68" Text="{80}" Property="WEB_APP_NAME" />
+                <Control Type="Text" Id="PoolNameLabel" Width="102" Height="10" X="41" Y="90" Text="Pool name:" />
+                <Control Type="Edit" Id="PoolNameEdit" Width="213" Height="15" X="41" Y="105" Text="{80}" Property="WEB_APP_POOL_NAME" />
+                <Control Type="Text" Id="DomainAppPoolLabel" Width="102" Height="10" X="41" Y="128" Text="Domain for AppPool:" />
+                <Control Type="Edit" Id="DomainAppPoolEdit" Width="213" Height="15" X="41" Y="142" Text="{80}" Property="WEB_APP_POOL_IDENTITY_DOMAIN" />
+                <Control Type="Text" Id="LoginAppPoolLabel" Width="102" Height="10" X="41" Y="52" Text="Login for AppPool:" />
+                <Control Type="Edit" Id="LoginAppPoolEdit" Width="213" Height="15" X="41" Y="68" Text="{80}" Property="WEB_APP_POOL_IDENTITY_USERNAME" />
+                <Control Type="Text" Id="PasswordAppPoolLabel" Width="102" Height="10" X="41" Y="165" Text="Password for AppPool:" />
+                <Control Type="Edit" Id="PasswordAppPoolEdit" Width="213" Height="15" X="41" Y="180" Text="{80}" Property="WEB_APP_POOL_IDENTITY_PWD" Password="yes" />
+            </Dialog>
+        </UI>
+    </Fragment>
+</Wix>

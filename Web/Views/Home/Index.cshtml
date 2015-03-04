@@ -1,0 +1,47 @@
+﻿@using System.Web.Optimization
+@model Spike.Web.Models.AuthorsModel
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section PageHeader
+{
+    @Scripts.Render("~/scripts/Pages/home.js")
+
+    <script>
+
+		$().ready(function() {
+
+		    $.Spike.page.viewModel = $.Spike.page.createViewModel(@Html.Raw(Json.Encode(Model)));
+
+			$.Spike.page.init();
+			ko.applyBindings($.Spike.page.viewModel);
+
+		});
+
+	</script>
+}
+
+@section PageContent
+{
+    <h1>Example MVC Website</h1>
+
+
+    <table>
+        <thead>
+            <tr>
+                <th>Author</th>
+                <th>Birth day</th>
+            </tr>
+        </thead>
+        <tbody data-bind="foreach: authorList">
+            <tr>
+                <td><span data-bind="text: name"></span></td>
+                <td><span data-bind="text: birthDay"></span></td>
+            </tr>
+        </tbody>
+    </table>
+
+}

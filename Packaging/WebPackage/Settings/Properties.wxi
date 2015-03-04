@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Include xlmns="http://schemas.microsoft.com/wix/2006/wi">
+  <Property Id="WEB_APP_POOL_NAME" Value="SpikeWebsitePool" />
+  <Property Id="WEBSITE_NAME" Value="SpikeWebsite" />
+</Include>

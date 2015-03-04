@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+
+    <Fragment>
+
+        <!-- Use the WixEdit tool to make modifications to forms -->
+        <UI>
+            <Dialog Id="SettingsDialog" Width="370" Height="250" Title="Configure Service - [ProductName] " NoMinimize="yes">
+                <Control Type="Bitmap" Id="Banner" Width="370" Height="40" X="4" Y="0" Text="WixUI_Bmp_Banner" />
+                <Control Type="Line" Id="BannerLine" Width="372" Height="2" X="0" Y="41" />
+                <Control Type="Text" Id="ServiceName" Width="60" Height="10" X="40" Y="56" Text="Service Name:" />
+                <Control Type="Edit" Id="ServiceNameText" Width="279" Height="15" X="40" Y="68" Text="{80}" Property="SERVICENAME" />
+                <Control Type="Text" Id="ServiceDescription" Width="80" Height="10" X="40" Y="90" Text="Service Description:" />
+                <Control Type="Edit" Id="ServiceDescriptionText" Width="279" Height="15" X="40" Y="101" Text="{80}" Property="SERVICEDESCRIPTION" />
+                <Control Type="Text" Id="ServiceUsername" Width="78" Height="10" X="40" Y="124" Text="Service Username:" />
+                <Control Type="Edit" Id="ServiceUsernameText" Width="279" Height="15" X="40" Y="135" Text="{80}" Property="SERVICEUSERNAME" />
+                <Control Type="Text" Id="ServicePassword" Width="75" Height="10" X="40" Y="158" Text="Service Password:" />
+                <Control Type="Edit" Id="ServicePasswordText" Width="279" Height="15" X="40" Y="169" Text="{80}" Property="SERVICEPASSWORD" Password="yes" />
+                <Control Type="Text" Id="Heading" Width="160" Height="14" X="11" Y="15" Text="Please provide service details:" />
+                <Control Type="PushButton" Id="Back" Width="56" Height="17" X="161" Y="218" Text="Back">
+                    <Publish Event="NewDialog" Value="LicenseAgreementDlg">1</Publish>
+                </Control>
+                <Control Type="PushButton" Id="Next" Width="56" Height="17" X="221" Y="218" Text="Next">
+                    <Publish Event="NewDialog" Value="CustomizeDlg">
+                      <![CDATA[SERVICENAME <> "" OR SERVICEDESCRIPTION <> "" OR SERVICEUSERNAME <> "" OR SERVICEPASSWORD <> ""]]>
+                   </Publish>
+                </Control>
+                <Control Type="PushButton" Id="Cancel" Width="56" Height="17" X="292" Y="218" Text="Cancel">
+                    <Publish Event="SpawnDialog" Value="CancelDlg">1</Publish>
+                </Control>
+                <Control Type="Line" Id="BottomLine" Width="374" Height="8" X="3" Y="210" />
+            </Dialog>
+        </UI>
+    </Fragment>
+</Wix>

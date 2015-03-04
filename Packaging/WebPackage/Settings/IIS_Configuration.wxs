@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:iis="http://schemas.microsoft.com/wix/IIsExtension" 
+     xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
+  <?include Constants.wxi?>
+  
+	<Fragment>
+    <DirectoryRef Id="INSTALLLOCATION">
+      <Component Id="C_IIS_Website_Settings" Guid="$(var.IISWebsiteId)" KeyPath="yes" Win64="yes">
+        
+        <!-- Reference user by WebAppPool > Does not create user only a reference -->
+        <util:User Id="WebAppPoolUser" CreateUser="no" Name="[WEB_APP_POOL_IDENTITY_USERNAME]"
+                   Password="[WEB_APP_POOL_IDENTITY_PWD]" Domain="[WEB_APP_POOL_IDENTITY_DOMAIN]"/>
+        
+        <!-- App Pool Settings > By selecting other you can define custom util:user -->
+        <iis:WebAppPool Id="WebAppPool" Name="[WEB_APP_POOL_NAME]" Identity="other" User="WebAppPoolUser" ManagedPipelineMode="Integrated" ManagedRuntimeVersion="V4.0" />
+
+        <!-- Configure IIS web application -->
+        <iis:WebVirtualDir Id="My.VirtualDir" Alias="[WEB_APP_NAME]" Directory="INSTALLLOCATION" WebSite="DefaultWebSite">
+          <iis:WebApplication Id="Application" Name="[WEB_APP_NAME]" WebAppPool="WebAppPool" />
+        </iis:WebVirtualDir>
+     
+      </Component>
+    </DirectoryRef>
+
+    <iis:WebSite Id="DefaultWebSite"
+                 Description="[WEBSITE_NAME]"
+                 Directory="INSTALLLOCATION"
+                 SiteId="[WEBSITE_ID]">
+      <iis:WebAddress Id="AllUnassigned" Port="80" />
+    </iis:WebSite>
+    
+	</Fragment>
+</Wix>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <?include Settings\Constants.wxi ?>
+  
+	<Product Id="$(var.ProductId)" Name="$(var.ProductName)" Language="1033" Version="$(var.VersionNumber)" Manufacturer="$(var.Manufacturer)" UpgradeCode="$(var.UpgradeCode)">
+		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
+    <?include Settings\Properties.wxi ?>
+    
+		<MajorUpgrade DowngradeErrorMessage="A newer version of [SERVICEDESCRIPTION] is already installed." />
+		<MediaTemplate />
+
+		<Feature Id="ProductFeature" Title="$(var.ProductName)" Level="1" ConfigurableDirectory="INSTALLFOLDER">
+			<ComponentGroupRef Id="C_SERVICE_CONTENT" />
+		</Feature>
+  
+   <UIRef Id="UX_Flow" />
+  
+	</Product>
+
+ 
+  <!--Set the install folder (TARGETDIR) -->
+	<Fragment>
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ManufacturerFolder" Name="$(var.Manufacturer)">
+        <Directory Id="INSTALLFOLDER" Name="$(var.ProductName)" />
+      </Directory>
+    </Directory>
+
+  </Fragment>
+</Wix>

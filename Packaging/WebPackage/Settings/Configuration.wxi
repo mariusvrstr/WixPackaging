@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Include xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:iis="http://schemas.microsoft.com/wix/IIsExtension"
+     xmlns:util="http://schemas.microsoft.com/wix/UtilExtension" xmlns:netfx="http://schemas.microsoft.com/wix/NetFxExtension">
+
+    <!-- The RegistrySearch elements will populate these properties with values from the registry IF they exist there, otherwise the default values will be used -->
+    <Property Id="REG_WEBSITE_NAME" Value="WebsiteName" >
+        <RegistrySearch Id="WEB_WEBSITE_NAME_Remembered" Root="HKLM" Key="SOFTWARE\PRODUCT_NAME" Name="Website_Name" Type="raw" />
+    </Property>
+    <Property Id="REG_WEB_APP_POOL_NAME" Value="PoolName" >
+        <RegistrySearch Id="WEB_APP_POOL_NAME_Remembered" Root="HKLM" Key="SOFTWARE\PRODUCT_NAME" Name="WebApp_PoolName" Type="raw" />
+    </Property>
+    <Property Id="REG_WEB_APP_POOL_IDENTITY_DOMAIN">
+        <RegistrySearch Id="WEB_APP_POOL_IDENTITY_DOMAIN_Remembered" Root="HKLM" Key="SOFTWARE\PRODUCT_NAME" Name="WebApp_PoolIdentityDomain" Type="raw" />
+    </Property>
+    <Property Id="REG_WEB_APP_POOL_IDENTITY_USERNAME" Value="NetworkService" >
+        <RegistrySearch Id="WEB_APP_POOL_IDENTITY_USERNAME_Remembered" Root="HKLM" Key="SOFTWARE\PRODUCT_NAME" Name="WebApp_PoolIdentityUsername" Type="raw" />
+    </Property>
+    <!-- Notice that the password is NOT stored in the registry and is hidden so it's not shown in logs -->
+    <Property Id="WEB_APP_POOL_IDENTITY_PWD" Hidden="yes" />
+
+    <!-- This is the compnent that actually writes the values to the registry on install -->
+    <Component Id="C_RegistryEntries" Directory="INSTALLLOCATION">
+        <RegistryValue Root="HKLM" Key="SOFTWARE\ProviderWebsites" Name="Website_Name"                  Type="string" Value="[WEBSITE_NAME]"/>
+        <RegistryValue Root="HKLM" Key="SOFTWARE\ProviderWebsites" Name="WebApp_PoolName"               Type="string" Value="[WEB_APP_POOL_NAME]"/>
+        <RegistryValue Root="HKLM" Key="SOFTWARE\ProviderWebsites" Name="WebApp_PoolIdentityDomain"     Type="string" Value="[WEB_APP_POOL_IDENTITY_DOMAIN]"/>
+        <RegistryValue Root="HKLM" Key="SOFTWARE\ProviderWebsites" Name="WebApp_PoolIdentityUsername"   Type="string" Value="[WEB_APP_POOL_IDENTITY_USERNAME]"/>
+    </Component>
+
+    <!-- These CustomActions set the property that are used for the install from the registry values (These actions are only run under the conditions in the sequences below) -->
+    <CustomAction Id='SetWebAppName'                    Property='WEBSITE_NAME'                     Value='[REG_WEBSITE_NAME]'/>
+    <CustomAction Id='SetWebAppPoolName'                Property='WEB_APP_POOL_NAME'                Value='[REG_WEB_APP_POOL_NAME]'/>
+    <CustomAction Id='SetWebAppPoolIdentityDomain'      Property='WEB_APP_POOL_IDENTITY_DOMAIN'     Value='[REG_WEB_APP_POOL_IDENTITY_DOMAIN]'/>
+    <CustomAction Id='SetWebAppPoolIdentityUsername'    Property='WEB_APP_POOL_IDENTITY_USERNAME'   Value='[REG_WEB_APP_POOL_IDENTITY_USERNAME]'/>
+
+    <!-- The CustomActions above that set the variables used in the installation are only run if they were not supplied by the command line -->
+    <InstallUISequence>
+        <Custom Action='SetWebAppName'                  After='AppSearch'>REG_WEBSITE_NAME                      AND (NOT WEBSITE_NAME)</Custom>
+        <Custom Action='SetWebAppPoolName'              After='AppSearch'>REG_WEB_APP_POOL_NAME                 AND (NOT WEB_APP_POOL_NAME)</Custom>
+        <Custom Action='SetWebAppPoolIdentityDomain'    After='AppSearch'>REG_WEB_APP_POOL_IDENTITY_DOMAIN      AND (NOT WEB_APP_POOL_IDENTITY_DOMAIN)</Custom>
+        <Custom Action='SetWebAppPoolIdentityUsername'  After='AppSearch'>REG_WEB_APP_POOL_IDENTITY_USERNAME    AND (NOT WEB_APP_POOL_IDENTITY_USERNAME)</Custom>
+    </InstallUISequence>
+    <InstallExecuteSequence>
+        <!-- After='RemoveExistingProducts' is used under this sequence because of the use of MajorUpgrades -->
+        <Custom Action='SetWebAppName'                  After='RemoveExistingProducts'>REG_WEBSITE_NAME                     AND (NOT WEBSITE_NAME)</Custom>
+        <Custom Action='SetWebAppPoolName'              After='RemoveExistingProducts'>REG_WEB_APP_POOL_NAME                    AND (NOT WEB_APP_POOL_NAME)</Custom>
+        <Custom Action='SetWebAppPoolIdentityDomain'    After='RemoveExistingProducts'>REG_WEB_APP_POOL_IDENTITY_DOMAIN     AND (NOT WEB_APP_POOL_IDENTITY_DOMAIN)</Custom>
+        <Custom Action='SetWebAppPoolIdentityUsername'  After='RemoveExistingProducts'>REG_WEB_APP_POOL_IDENTITY_USERNAME   AND (NOT WEB_APP_POOL_IDENTITY_USERNAME)</Custom>
+    </InstallExecuteSequence>
+
+</Include>

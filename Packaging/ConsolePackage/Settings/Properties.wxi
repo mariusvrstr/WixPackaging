@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Include xlmns="http://schemas.microsoft.com/wix/2006/wi">
+  <Property Id="SERVICENAME" Value="Spike.ExampleService" />
+  <Property Id="SERVICEDESCRIPTION" Value="Spike.ExampleService" />
+  <Property Id="SERVICEUSERNAME" Value="LocalSystem" />
+  <Property Id="SERVICEPASSWORD" Hidden="yes" />
+</Include>

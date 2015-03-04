@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+	<?include Settings\Constants.wxi ?>
+ 
+    
+    <!--NEVER Change the upgrade code -->
+    <?define UpdgradeCode="339B11B5-40C0-43A0-AE98-FE65EC6029D2" ?>
+      
+    <Product Id="$(var.ProductId)" Name="$(var.ProductName)" Language="1033" Version="1.0.0.0" Manufacturer="$(var.Manufacturer)" UpgradeCode="$(var.UpdgradeCode)">
+      <Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" Platform="x64" />
+      <?include Settings\Configuration.wxi ?>
+      <?include Settings\Properties.wxi ?>
+
+		  <MajorUpgrade AllowDowngrades="no" Schedule="afterInstallInitialize" DowngradeErrorMessage="A newer version of [ProductName] is already installed. Setup will now exit." />
+		  <MediaTemplate />
+      
+      <!-- Verify that IIS is installed else exit -->
+      <Property Id="IIS_MAJOR_VERSION">
+          <RegistrySearch Id="CheckIISVersion" Root="HKLM"  Type="raw" Key="SOFTWARE\Microsoft\InetStp" Name="MajorVersion" Win64="yes" />
+      </Property>
+      <Condition Message="IIS must be installed">Installed OR IIS_MAJOR_VERSION</Condition>
+      
+      <!-- Find IIS Root directory and exit if not available -->
+      <Property Id="IISROOT">
+          <RegistrySearch Id="IISROOT" Root="HKLM" Type="directory" Key="SOFTWARE\Microsoft\InetStp" Name="PathWWWRoot" Win64="yes" />
+      </Property>
+      <Condition Message="IIS Does not seem to be installed correctly (Root directory missing).">Installed OR IISROOT</Condition>
+      
+      <!-- Set the install destination folder structure -->
+      <Directory Id="TARGETDIR" Name="SourceDir">
+          <Directory Id="IISROOT" Name="IISROOT">
+              <Directory Id="INSTALLLOCATION" Name="$(var.VirtualDir)">
+                <Directory Id="Bin" Name="Bin" />
+              </Directory>
+          </Directory>
+      </Directory>
+      
+      <!-- Include the generated file list -->
+		  <Feature Id="F_Web_Content" Title="Website Content" Level="1" Description="The website contents" ConfigurableDirectory="INSTALLLOCATION">
+			  <ComponentGroupRef Id="C_WEB_CONTENT" />
+        <ComponentRef Id="C_RegistryEntries" />
+		  </Feature>
+      
+      <!-- Include the IIS configuration -->
+      <Feature Id="F_IIS_Website" Title="IIS Website" Description="The IIS Website and Application Pool" Level="1">
+        <ComponentRef Id="C_IIS_Website_Settings" />
+      </Feature>
+      
+      <InstallExecuteSequence>
+      </InstallExecuteSequence>
+
+      <UIRef Id="UIFlow" />
+
+	</Product>
+</Wix>

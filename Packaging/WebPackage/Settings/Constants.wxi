@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Include>
+  <?define VirtualDir="SpikeWebsite" ?>
+  <?define ProductName="WebExample" ?>
+  <?define Manufacturer="Spike" ?>
+  
+  <?define IISWebsiteId="7E214F4C-BBAC-4C6E-94B5-C6C0106F2D05" ?>
+  <?define ProductId="DF59E61A-2B53-4323-B9E2-B854297D85C6" ?>
+</Include>

@@ -1,0 +1,46 @@
+﻿@using System.Web.Optimization
+
+@model Spike.Web.Models.ModelBase
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Basic MVC and Knockout Site</title>
+
+    @Scripts.Render("~/scripts/jquery-2.1.3.js")
+    @Scripts.Render("~/scripts/knockout-3.2.0.js")
+    @Scripts.Render("~/scripts/common.js")
+    @Styles.Render("~/Content/site.css")
+
+    @RenderSection("PageHeader", true)
+    
+</head>
+
+<body>
+
+    <div id="wrapper">
+
+        <div id="header">&nbsp;</div>
+
+        <div id="navigation">
+      
+                  @Html.Partial("_Menu", Model.MenuItems)
+        </div>
+
+        <div id="page">
+
+            @RenderSection("PageContent", true)
+
+        </div>
+
+        <div id="footer">
+            Copyright Spikes 2015
+        </div>
+
+    </div>
+
+</body>
+
+</html>
