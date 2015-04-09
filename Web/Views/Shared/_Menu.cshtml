@@ -1,5 +1,6 @@
 ﻿@using System.Web.Helpers
 @using System.Web.Optimization
+@using Spike.Web.HtmlHelper
 @using Spike.Web.Menu
 
 @model System.Collections.Generic.IEnumerable<MenuItem>
@@ -7,7 +8,7 @@
 Navigation
 <ul data-bind="foreach: menuItems">
     <li>
-        <a data-bind="attr: { href: 'http://localhost:49197/' + link }">
+        <a data-bind="attr: { href: '@HtmlHelperExtensions.GetBaseUrl()' + '/' + link }">
             <span data-bind="text: name"></span>
         </a> 
     </li>
