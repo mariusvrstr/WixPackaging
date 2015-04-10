@@ -8,11 +8,14 @@ namespace Spike.Web.HtmlHelper
         public static string GetBaseUrl()
         {
             var request = HttpContext.Current.Request;
-            var response = request.Url.Scheme
-                   + "://" + request.Url.Authority
-                   + ((request.ApplicationPath == null) ? string.Empty : request.ApplicationPath.TrimEnd('/'));
 
-            return response;
+            var appUrl = (string.IsNullOrEmpty(HttpRuntime.AppDomainAppVirtualPath)
+                ? string.Empty
+                : HttpRuntime.AppDomainAppVirtualPath);
+
+            var test = string.Format("{0}://{1}{2}", request.Url.Scheme, request.Url.Authority, appUrl);
+
+            return test;
         }
     }
 }

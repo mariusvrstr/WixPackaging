@@ -2,4 +2,6 @@
 <Include xlmns="http://schemas.microsoft.com/wix/2006/wi">
   <Property Id="WEB_APP_POOL_NAME" Value="SpikeWebsitePool" />
   <Property Id="WEBSITE_NAME" Value="SpikeWebsite" />
+  <Property Id="WEB_APP_NAME" Value="SpikeApplication" />
+  <Property Id="WEBSITE_ID" Value="2" />
 </Include>
