@@ -42,9 +42,11 @@ $.Spike.page.createViewModel = function (serverData) {
 	
     var menuItems = ko.observableArray();
     var authorList = ko.observableArray(convertedAuthors);
+    var environment = serverData.Environment;
 	
 	return {
 	    menuItems: menuItems,
-	    authorList: authorList
+	    authorList: authorList,
+	    environment: environment
 	}	
 };

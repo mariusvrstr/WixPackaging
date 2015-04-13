@@ -1,5 +1,5 @@
 ﻿@using System.Web.Optimization
-@model Spike.Web.Models.AuthorsModel
+@model Spike.Web.Models.HomeModel
 
 @{
     ViewBag.Title = "Index";
@@ -26,9 +26,8 @@
 
 @section PageContent
 {
-    <h1>Example MVC Website</h1>
-
-
+    <h1>Example MVC Website <span class="env">(<strong>Environment:</strong> <span data-bind="text: environment"></span>)</span></h1>
+    
     <table>
         <thead>
             <tr>

@@ -11,18 +11,26 @@
                     <Publish Event="NewDialog" Value="LicenseAgreementDlg" />
                 </Control>
                 <Control Type="PushButton" Id="Next" Width="56" Height="17" X="251" Y="270" Text="Next">
-                  <Publish Event="NewDialog" Value="PoolSettingDlg">
-                    <!-- Validate Input -->
-                    <![CDATA[WEBSITE_NAME <> ""]]>
-                  </Publish>
+                    <Publish Event="NewDialog" Value="PoolSettingDlg">
+                        <!-- Validate Input --><![CDATA[WEBSITE_NAME <> ""]]></Publish>
                 </Control>
                 <Control Type="PushButton" Id="Cancel" Width="56" Height="17" X="330" Y="270" Text="Cancel">
                     <Publish Event="SpawnDialog" Value="CancelDlg">1</Publish>
                 </Control>
-                <Control Type="Text" Id="WebsiteNameLabel" Width="102" Height="10" X="41" Y="52" Text="IIS Website Name:" />
-                <Control Type="Edit" Id="WebsiteNameEdit" Width="213" Height="15" X="41" Y="68" Text="{80}" Property="WEBSITE_NAME" />
-                <Control Type="Text" Id="WebsiteIdLabel" Width="102" Height="10" X="41" Y="94" Text="Website ID:" />
-                <Control Type="Edit" Id="WebsiteIdEdit" Width="213" Height="15" X="41" Y="109" Text="{80}" Property="WEBSITE_ID" />
+                <Control Type="Text" Id="WebsiteNameLabel" Width="102" Height="10" X="41" Y="50" Text="IIS Website Name:" />
+                <Control Type="Edit" Id="WebsiteNameEdit" Width="213" Height="15" X="41" Y="65" Text="{80}" Property="WEBSITE_NAME" />
+                <Control Type="Text" Id="WebsiteIdLabel" Width="102" Height="10" X="41" Y="130" Text="Website ID:" />
+                <Control Type="Edit" Id="WebsiteIdEdit" Width="213" Height="15" X="41" Y="145" Text="{80}" Property="WEBSITE_ID" />
+                <Control Type="Text" Id="ApplicationNameLabel" Width="127" Height="12" X="41" Y="90" Text="Application Name:" />
+                <Control Type="Edit" Id="ApplicationNameEdit" Width="208" Height="15" X="41" Y="105" Text="{80}" Property="WEB_APP_NAME" />
+                <Control Type="Text" Id="EnvironmentLabel" Width="59" Height="17" X="41" Y="170" Text="Environment:" />
+                <Control Type="RadioButtonGroup" Property="CURRENT_ENV" Id="EnvironmentRadio" Width="56" Height="68" X="142" Y="170">
+                    <RadioButtonGroup Property="CURRENT_ENV">
+                        <RadioButton Text="Default" Height="15" Value="DEFAULT" Width="50" X="0" Y="0" />
+                        <RadioButton Text="UAT" Height="15" Value="UAT" Width="50" X="0" Y="25" />
+                        <RadioButton Text="PROD" Height="15" Value="PROD" Width="50" X="0" Y="51" />
+                    </RadioButtonGroup>
+                </Control>
             </Dialog>
             <Dialog Id="PoolSettingDlg" Width="400" Height="300" Title="Application Pool Settings - [ProductName]" NoMinimize="yes">
                 <Control Type="Text" Id="Title" Width="163" Height="10" X="8" Y="11" Text="Please enter App Pool configuration details:" />
@@ -33,10 +41,8 @@
                     <Publish Event="NewDialog" Value="IisSetupDlg" />
                 </Control>
                 <Control Type="PushButton" Id="Next" Width="56" Height="17" X="251" Y="270" Text="Next">
-                  <Publish Event="NewDialog" Value="CustomizeDlg">
-                    <!-- Validate input -->
-                    <![CDATA[WEB_APP_POOL_NAME <> "" or WEB_APP_POOL_IDENTITY_DOMAIN <> "" or WEB_APP_POOL_IDENTITY_USERNAME <> "" or WEB_APP_POOL_IDENTITY_PWD <> ""]]>
-                  </Publish>
+                    <Publish Event="NewDialog" Value="CustomizeDlg">
+                        <!-- Validate input --><![CDATA[WEB_APP_POOL_NAME <> "" or WEB_APP_POOL_IDENTITY_DOMAIN <> "" or WEB_APP_POOL_IDENTITY_USERNAME <> "" or WEB_APP_POOL_IDENTITY_PWD <> ""]]></Publish>
                 </Control>
                 <Control Type="PushButton" Id="Cancel" Width="56" Height="17" X="330" Y="270" Text="Cancel">
                     <Publish Event="SpawnDialog" Value="CancelDlg">1</Publish>

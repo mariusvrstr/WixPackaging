@@ -8,7 +8,7 @@
 Navigation
 <ul data-bind="foreach: menuItems">
     <li>
-        <a data-bind="attr: { href: '@HtmlHelperExtensions.GetBaseUrl()' + link }">
+        <a data-bind="attr: { href: '@HtmlHelperExtensions.GetBaseUrl()' + '/' + link }">
             <span data-bind="text: name"></span>
         </a> 
     </li>

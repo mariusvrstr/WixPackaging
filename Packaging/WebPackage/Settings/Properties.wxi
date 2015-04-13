@@ -4,4 +4,5 @@
   <Property Id="WEBSITE_NAME" Value="SpikeWebsite" />
   <Property Id="WEB_APP_NAME" Value="SpikeApplication" />
   <Property Id="WEBSITE_ID" Value="2" />
+  <Property Id="CURRENT_ENV" Value="DEFAULT" />
 </Include>

@@ -5,6 +5,7 @@ namespace Spike.Web.Controllers
     using Model;
     using Menu;
     using Models;
+    using Utilities;
 
     public class HomeController : Controller
     {
@@ -13,10 +14,13 @@ namespace Spike.Web.Controllers
         {
             var provider = ProviderFactory.CreateAuthorProvider();
 
-            var model = new AuthorsModel
+            SettingManager.ResetSettings();
+
+            var model = new HomeModel
             {
                 MenuItems = MenuGenerator.GenerateMenu(),
-                Authors = provider.GetAllAuthors()
+                Authors = provider.GetAllAuthors(),
+                Environment = SettingManager.Instance.Environment
             };
 
             return View(model);

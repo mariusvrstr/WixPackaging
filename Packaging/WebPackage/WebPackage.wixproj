@@ -20,6 +20,11 @@
     <OutputPath>bin\$(Configuration)\</OutputPath>
     <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
     <DefineConstants>Debug;HostFileDir=$(SolutionDir)Web\Publish</DefineConstants>
+    <SuppressValidation>False</SuppressValidation>
+    <CompilerAdditionalOptions>
+    </CompilerAdditionalOptions>
+    <SuppressIces>
+    </SuppressIces>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Dialogs\Dialolgs.wxs" />
@@ -29,6 +34,7 @@
     <Compile Include="Settings\IIS_Configuration.wxs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Generate\CustomHarvestTransform.xsl" />
     <Content Include="packages.config" />
     <Content Include="Settings\Configuration.wxi" />
     <Content Include="Settings\Constants.wxi" />
@@ -60,7 +66,7 @@
   </PropertyGroup>
   <Import Project="$(WixTargetsPath)" />
   <PropertyGroup>
-    <PreBuildEvent>"$(WIX)bin\heat.exe" dir "$(SolutionDir)Web\Publish" -cg C_WEB_CONTENT -gg -scom -sreg -sfrag -srd -dr INSTALLLOCATION -var var.HostFileDir -out "$(ProjectDir)Generate\HarvestedFiles.wxs"</PreBuildEvent>
+    <PreBuildEvent>"$(WIX)bin\heat.exe" dir "$(SolutionDir)Web\Publish" -cg C_WEB_CONTENT -gg -scom -sreg -sfrag -srd -dr INSTALLLOCATION -var var.HostFileDir -out "$(ProjectDir)Generate\HarvestedFiles.wxs" -t "$(ProjectDir)Generate\CustomHarvestTransform.xsl"</PreBuildEvent>
   </PropertyGroup>
   <!--
 	To modify your build process, add your task inside one of the targets below and uncomment it.

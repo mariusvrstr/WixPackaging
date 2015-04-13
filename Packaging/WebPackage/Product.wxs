@@ -30,22 +30,51 @@
       <Directory Id="TARGETDIR" Name="SourceDir">
           <Directory Id="IISROOT" Name="IISROOT">
               <Directory Id="INSTALLLOCATION" Name="$(var.VirtualDir)">
+                <Directory Id="Env" Name="Env" />
                 <Directory Id="Bin" Name="Bin" />
               </Directory>
           </Directory>
       </Directory>
       
+      <ComponentGroup Id='C_Environment_Configs' Directory='INSTALLLOCATION'>
+        <Component Id='Default' Guid='893615F5-9E90-45F7-83C1-63185002C13A'>
+          <Condition>CURRENT_ENV="DEFAULT"</Condition>
+          <File Source='$(var.HostFileDir)\Env\web.default.config'>
+            <CopyFile Id='DefaultWebConfig' DestinationDirectory='INSTALLLOCATION' DestinationName='web.config' />
+          </File>
+        </Component>
+
+        <Component Id='UAT' Guid='40D0D23E-238A-46EC-B6C7-B7DE7E89A92E'>
+          <Condition>CURRENT_ENV="UAT"</Condition>
+          <File Source='$(var.HostFileDir)\Env\web.uat.config'>
+            <CopyFile Id='UatWebConfig' DestinationDirectory='INSTALLLOCATION' DestinationName='web.config' />
+          </File>
+        </Component>
+
+        <Component Id='PROD' Guid='3E8214ED-19E1-49D4-A7BB-C7135F1AF987'>
+          <Condition>CURRENT_ENV="PROD"</Condition>
+          <File Source='$(var.HostFileDir)\Env\web.prod.config'>
+            <CopyFile Id='ProdWebConfig' DestinationDirectory='INSTALLLOCATION' DestinationName='web.config' />
+          </File>
+        </Component>
+      </ComponentGroup>
+
+      <!-- Include the generated file list -->
+      <Feature Id="F_Configuration" Title="Environment Configuration" Level="1" Description="The environmental configuration" ConfigurableDirectory="INSTALLLOCATION">
+        <ComponentGroupRef Id="C_Environment_Configs" />
+      </Feature>
+      
       <!-- Include the generated file list -->
 		  <Feature Id="F_Web_Content" Title="Website Content" Level="1" Description="The website contents" ConfigurableDirectory="INSTALLLOCATION">
 			  <ComponentGroupRef Id="C_WEB_CONTENT" />
         <ComponentRef Id="C_RegistryEntries" />
-		  </Feature>
-      
+      </Feature>
+
       <!-- Include the IIS configuration -->
       <Feature Id="F_IIS_Website" Title="IIS Website" Description="The IIS Website and Application Pool" Level="1">
         <ComponentRef Id="C_IIS_Website_Settings" />
       </Feature>
-      
+
       <InstallExecuteSequence>
       </InstallExecuteSequence>
 
