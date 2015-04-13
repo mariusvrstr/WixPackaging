@@ -95,13 +95,13 @@
     <Content Include="Content\site.css" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\common.js" />
-    <Content Include="Env\web.default.config">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="Env\web.prod.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Env\web.uat.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Env\Web.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <None Include="Properties\PublishProfiles\LocalPublish.pubxml" />
@@ -175,7 +175,7 @@
     </VisualStudio>
   </ProjectExtensions>
   <PropertyGroup>
-    <PreBuildEvent>xcopy /Q /Y "$(ProjectDir)Web.config" "$(ProjectDir)Env\DEFAULT\"</PreBuildEvent>
+    <PreBuildEvent>xcopy /Q /Y "$(ProjectDir)Web.config" "$(ProjectDir)Env\"</PreBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

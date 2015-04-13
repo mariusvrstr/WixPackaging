@@ -231,3 +231,4 @@ $RECYCLE.BIN/
 *.lnk
 Packaging/WebPackage/Generate/HarvestedFiles.wxs
 Packaging/ConsolePackage/Generate/HarvestedFiles.wxs
+Web/Env/Web.config
