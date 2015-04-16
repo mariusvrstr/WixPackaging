@@ -19,6 +19,13 @@
   <xsl:template match="wix:Component[key('config-search', @Id)]" />
   <xsl:template match="wix:ComponentRef[key('config-search', @Id)]" />
 
+  <xsl:key name="env-dir-search" match="wix:Directory[@Name='Env']" use="@Id" />
+  <xsl:key name="env-file-search" match="wix:Component[ancestor::wix:Directory/@Name='Env']" use="@Id" />
+  
+  <xsl:template match="wix:Directory[@Name='Env']" />
+  <xsl:template match="wix:Component[key('env-dir-search', @Directory)]"/>
+  <xsl:template match="wix:ComponentRef[key('env-file-search', @Id)]" />
+
 </xsl:stylesheet>
 
 
